@@ -1,0 +1,143 @@
+
+.main {
+	padding: 1em;
+	margin-top:3em;
+}
+
+.tbl {
+	margin-top: 1em;
+	width:100%;
+	border-collapse: collapse;
+}
+
+tr {
+	border-bottom: 1px solid #efefef;
+}
+
+tr:nth-child(1n+2) {
+background-color: rgba(44, 62, 80,0.1);
+color: #000;
+}
+
+tr:nth-child(2n+3) {
+background-color:rgba(149, 165, 166,0.1);
+color: #000;
+}
+
+h1, h2 {
+	padding-bottom: 0.5em;
+}
+
+h2 {
+	padding-top:1em;
+}
+
+/* custom select list */
+
+select {
+	background:  rgba(50, 50, 50, 0.1);
+    padding:0.5em;
+    margin: 0;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+    border:none;
+    outline:none;
+    display: inline-block;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    cursor:pointer;
+    font-size:100%;
+    font-family: "Open Sans", sans-serif;
+}
+
+select:hover {
+	background-color:rgb(39, 174, 96);
+	color:#fff;
+	}
+
+/* Targetting Webkit browsers only. FF will show the dropdown arrow with so much padding. */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select {padding-right:30px}
+}
+
+label {position:relative}
+
+label:after {
+	font-family: FontAwesome;
+    content:'\f054';
+    -webkit-transform:rotate(90deg);
+    -moz-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform:rotate(90deg);
+    right:11px; top:2px;
+    padding:0 0 2px;
+    position:absolute;
+    pointer-events:none;
+    color:#000;
+}
+
+label:before:hover {
+	color: #fff;
+}
+label:before {
+    content:'';
+    right:6px; top:0px;
+    width:20px; height:20px;
+    position:absolute;
+    pointer-events:none;
+    display:block;
+}
+
+/* custom upload button */
+#input-file {
+	display: none;
+}
+
+/*
+*	custom datepicker
+*/
+
+/* Widget Einstellungen */
+.ui-widget {
+	font-family: "Open Sans", sans-serif;
+	font-size: 0.8em;
+}
+
+/* datepicker-Fenster */
+.ui-datepicker {
+	width:25%;
+	padding:0.2em;
+}
+
+/* Titel ohne Background */
+.ui-widget-header {
+	background:none;
+}
+
+/* Titel etwas schärfer ohne margin */
+.ui-datepicker .ui-datepicker-title {
+	margin:0;
+}
+
+/* glass-effekt raus */
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	background:none;
+}
+
+/* aktueller Tag */
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+	background-color:rgb(52, 152, 219);
+	}
+
+/* schließen Button */
+.ui-priority-primary,
+.ui-widget-content .ui-priority-primary,
+.ui-widget-header .ui-priority-primary {
+    font-weight: normal;
+}
