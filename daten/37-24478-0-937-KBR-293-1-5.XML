@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Laborabrechnung Version="4.2">
+  <Rechnung Laborname="Dentalglobal GmbH" Labor-ID="" Herstellungsort="D-Hamm" Abrechnungsbereich="WL" NEM_Einzelpreis="0" NEM_Abrechnungseinheiten="0" Laborlieferdatum="2014-11-19" Laborrechnungsnummer="2242" Auftragsnummer="37-24478-0-937-KBR-293-1-5" Gesamtbetrag_netto="19257" Mehrwertsteuer_gesamt="1348" Gesamtbetrag_brutto="20605" Laborsoftwarehersteller="Wolf" Laborsoftware="DeLab32" Laborsoftwareversion="29144145">
+    <MWST-Gruppe Zwischensumme_netto="19257" Mehrwertsteuersatz="70" Mehrwertsteuerbetrag="1348">
+      <Position Art="BEL" Nummer="0010" Beschreibung="Modell" Einzelpreis="578" Menge="3000"/>
+      <Position Art="BEL" Nummer="0021" Beschreibung="Doublieren eines Modells" Einzelpreis="1177" Menge="1000"/>
+      <Position Art="BEL" Nummer="0120" Beschreibung="Mittelwertartikulator" Einzelpreis="848" Menge="1000"/>
+      <Position Art="BEL" Nummer="3821" Beschreibung="Weichkunststoff" Einzelpreis="4694" Menge="1000"/>
+      <Position Art="BEL" Nummer="4010" Beschreibung="Aufbissbehelf m. adj. Oberfläche" Einzelpreis="8296" Menge="1000"/>
+      <Position Art="BEL" Nummer="7100" Beschreibung="Aufbiss" Einzelpreis="849" Menge="2000"/>
+      <Position Art="BEL" Nummer="9330" Beschreibung="Versandkosten" Einzelpreis="405" Menge="2000"/>
+    </MWST-Gruppe>
+  </Rechnung>
+</Laborabrechnung>
