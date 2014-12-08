@@ -12,12 +12,18 @@ $document=($_FILES['document']['name']);
 if (isset ($_POST["check"])) {
 	// Alle erforderlichen Felder ausgefüllt?
 	if (empty($kunden_id)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte wählen Sie einen Kunden</div>";}
-	if (empty($invoice_no)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie eine Rechungsnummer an</div>";}
-	if (empty($invoice_date)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie ein Rechnungsdatum an</div>";}
+	if (empty($invoice_no)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie eine Laborrechnungsnummer an</div>";}
+	// Laborrechnungsnummer 4-stellig?
+	if (!empty($invoice_no)) {
+		if (!preg_match('/^[0-9]{4}\z/',$invoice_no)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Die Laborrechnungsnummer muss 4-stellig sein und darf nur Zahlen von 0-9 beinhalten</div>";}
+	}
+	if (empty($invoice_date)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie ein Rechnungsdatum an (Format dd.mm.yyyy oder aus dem Kalender wählen)</div>";}
 	if (empty($document)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Keine Datei ausgewählt</div>";}
 	// Dateityp XML?
-	$type = explode(".",$document);
-	if(strtolower(end($type)) != 'xml') {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte nur XML-Dateien hochladen</div>";}
+	if (!empty($document)) {
+		$type = explode(".",$document);
+		if(strtolower(end($type)) != 'xml') {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte nur XML-Dateien hochladen</div>";}
+	}
 		//  Nur wenn KEINE Fehler vorliegen, hier weiter
 		if (empty($fehler)) {
 		// Eintrag vornehmen

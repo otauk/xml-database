@@ -1,9 +1,23 @@
 
 $(document).ready(function(){
-
+	// Custom input type=file field
 	$('#button-file').click(function() {
     	$('#input-file').trigger('click');
 	});
+
+	// Name der Upload-Datei
+    $("#input-file").change(function(){
+        getFileName($(this).attr("id"));
+    });
+
+	getFileName = function(id){
+	    var str = '';
+	    var files = document.getElementById(id).files;
+	    for (var i = 0; i < files.length; i++){
+	        str += files[i].name;
+	    }
+	    $("#button-file").text(str);
+	}
 
   $(function() {
   $('#datepicker').datepicker({

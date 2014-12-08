@@ -32,13 +32,13 @@ $result_num = mysqli_num_rows($result);
 					<table class="tbl">
 						<tr>
 							<td>
-								Rechnungsnummer
+								Laborrechnungsnummer
 							</td>
 							<td>
 								Rechnungsdatum
 							</td>
 							<td>
-								Name des Dokuments
+								Auftragsnummer
 							</td>
 							<td>
 								eingetragen am
@@ -50,6 +50,9 @@ $result_num = mysqli_num_rows($result);
 						while($row = mysqli_fetch_array($result)) {
 							$inv_date =	date('d.m.Y', strtotime($row['invoice_date']));
 							$re_date = date('d.m.Y', strtotime($row['insert_date']));
+							// Suffix entfernen
+							$dokname = $row["document"];
+							$ext = reset((explode(".", $dokname)));
 					?>
 						<tr>
 							<td>
@@ -59,7 +62,7 @@ $result_num = mysqli_num_rows($result);
 								<?=$inv_date;?>
 							</td>
 							<td>
-								<?=$row["document"];?>
+								<?=$ext;?>
 							</td>
 							<td>
 								<?=$re_date;?>

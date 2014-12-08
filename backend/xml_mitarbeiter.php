@@ -18,7 +18,6 @@ if (isset($_POST["ak"])) {
 	}
 }
 // XML-Datenbank
-
 ?>
 		<div class="main">
 			<div class="content">
@@ -44,16 +43,23 @@ if (isset($_POST["ak"])) {
 							?>
 							</select>
 							</label>
-							<div class="fieldname">Rechnungsnummer:</div>
-							<input type="text" value="<?=$invoice_no;?>" name="invoice_no" class="textfield" required="required" maxlength="5"/>
+							<div class="fieldname">Laborrechnungsnummer:</div>
+							<input type="text" value="<?=$invoice_no;?>" name="invoice_no" class="textfield" required="required" maxlength="4"/>
 							<div class="fieldname">Rechnungsdatum:</div>
 							<input type="text" value="<?=$invoice_date;?>" name="invoice_date" class="textfield" id="datepicker" required="required">
 							<div class="fieldname">XML-Dokument:</div>
-							<a class="form_btn upload" id="button-file">XML-Datei wählen</a>
+							<a class="form_btn upload" id="button-file">
+								<?php
+									if (isset($document)) {
+										echo $document;
+									}
+									else echo "XML-Datei wählen";
+								?>
 
+							</a>
 							<input type="file" name="document" class="form_btn" id="input-file" />
 							<div class="topspace">
-								<button type="submit"  class='form_btn submit'>Upload</button>
+								<button type="submit" class='form_btn submit'>Upload</button>
 							</div>
 						</form>
 				<hr class="topspace"/>
@@ -62,7 +68,7 @@ if (isset($_POST["ak"])) {
 					<table class="tbl">
 						<tr>
 								<td>
-									Rechnungsnummer
+									Laborrechnungsnummer
 								</td>
 								<td>
 									Rechnungsdatum
@@ -123,7 +129,6 @@ if (isset($_POST["ak"])) {
 							</td>
 						</tr>
 						</form>
-
 					<?php
 						}
 					?>
