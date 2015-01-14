@@ -23,61 +23,73 @@ if (isset($_POST["ak"])) {
 			<div class="content">
 				<div class="text">
 					<h1>Verwaltung XML-Dateien</h1>
-					<?php echo $confirmation;
-
-						echo $document;
-					?>
-
-
-<?php
-								/*			$xmlFile = $document;
-
-    $Response = @simplexml_load_file($xmlFile) or
-          die ("Fehler beim Laden der Datei: ".$xmlFile."\n");
-          //print_r($Response);
-
-echo "<hr/><p>Laborlieferdatum: ".$Response->Rechnung->attributes()->Laborlieferdatum."</p>";
-echo "<hr/><p>Auftragsnummer: ".$Response->Rechnung->attributes()->Auftragsnummer."</p>";
-echo "<hr/><p>Laborrechnungsnummer: ".$Response->Rechnung->attributes()->Laborrechnungsnummer."</p>";*/
-
-?>
-
+					<?php echo $confirmation;?>
+					<?php
+						if (!isset($_POST["upload"]) OR isset($fehler)) {
+						?>
 					<h2>Upload XML-Datei</h2>
 						<form name="upload" action="xml_mitarbeiter.php" method="POST" enctype="multipart/form-data">
-							<input type="hidden" name="check" value="1" />
-							<div class="fieldname">Kunde:</div>
-							<label>
-							<select name="kunden_id">
-							<option value="">...bitte wählen Sie einen Kunden</option>
-							<?php
-								while ($rowk = $erg->fetch_assoc()) {
-									if (isset($kunden_id)) {
-										if ($kunden_id == $rowk[kunden_id]) {
-											$sel = 'selected';
-										} else $sel ='';
-									}
-									echo "<option value='$rowk[kunden_id]' $sel>".$rowk["name"]."</option>";
-									}
-							?>
-							</select>
-							</label>
-							<div class="fieldname">Laborrechnungsnummer:</div>
-							<input type="text" value="<?=$invoice_no;?>" name="invoice_no" class="textfield" required="required" maxlength="4"/>
-							<div class="fieldname">Rechnungsdatum:</div>
-							<input type="text" value="<?=$invoice_date;?>" name="invoice_date" class="textfield" id="datepicker" required="required">
-							<div class="fieldname">XML-Dokument:</div>
+							<input type="hidden" name="upload" value="1" />
 							<a class="form_btn upload" id="button-file">
-								<?php
-									if (isset($document)) {
-										echo $document;
-									}
-									else echo "XML-Datei wählen";
-								?>
+							<?php
+									if (isset($document)) {echo $document;}else echo "XML-Datei wählen";
+									?>
 							</a>
 							<input type="file" name="document" class="form_btn" id="input-file" />
-							<div class="topspace">
-								<button type="submit" class='form_btn submit'>Upload</button>
-							</div>
+							<button type="submit" class="form_btn submit">Upload</button>
+						</form>
+						<?php
+							}
+							?>
+						<?php
+						$xmlFile = "upload/".$document;
+						$Response = @simplexml_load_file($xmlFile) or die;
+						$date = $Response->Rechnung->attributes()->Laborlieferdatum;
+						// Datum formatieren
+						$dateFormat = new DateTime($date);
+						$order_no = $Response->Rechnung->attributes()->Auftragsnummer;
+						//	Kundennummer aus Auftragsnummer extrahieren (an 3. Stelle ein "-" ?)
+						$case = substr($order_no,2,1);
+							if ($case == "-") {
+								$customer = substr($order_no, 3,5);
+							}
+							else {
+								$customer = substr($order_no, 0,6);
+							}
+						// Kundennummer vorhanden? Dann Kunde ausgeben, sonst Fehlermeldung
+						$abfrage = "SELECT * FROM kunden_db WHERE kunden_id = '$customer' LIMIT 1";
+						$ergebnis = $con->query($abfrage);
+						$row = mysqli_fetch_object($ergebnis);
+						if ( $row->kunden_id != $customer) {
+							echo "
+							<div class='topspace'></div>
+							<div class='alert red'>
+								Kunde mit id <em>$customer</em> nicht vorhanden.
+								Bitte
+									<a href='kunden_neuanlage.php'>
+										<button class='form_btn' >
+											neu anlegen
+										</button>
+									</a>
+							</div>";
+							exit();
+						}
+						else {
+							$customer = $row->name;
+						}
+
+						// Ausgabe der Daten
+						echo "<h2>Rechnungsdaten</h2>";
+						echo "<hr/><p>Laborlieferdatum: ".$dateFormat->format('d.m.Y')."</p>";
+						echo "<hr/><p>Laborrechnungsnummer: ".$Response->Rechnung->attributes()->Laborrechnungsnummer."</p>";
+						echo "<hr/><p>Auftragsnummer: ".$order_no."</p>";
+						echo "<hr/><p>Kunde: ".$customer."</p>";
+						?>
+						<form name="dbEntry" action="xml_mitarbeiter.php" method="POST">
+							<div class="fieldname">Patient:</div>
+							<input type="text" value="<?=$patient;?>" name="patient" class="textfield" required="required" maxlength="100"/>
+							<div class="topspace"></div>
+							<button type="submit" class="form_btn submit">Eintragen</button>
 						</form>
 				<hr class="topspace"/>
 				<h2>Liste aller XML-Dateien</h2>
@@ -85,16 +97,19 @@ echo "<hr/><p>Laborrechnungsnummer: ".$Response->Rechnung->attributes()->Laborre
 					<table class="tbl">
 						<tr>
 								<td>
+									Laborlieferdatum
+								</td>
+								<td>
 									Laborrechnungsnummer
 								</td>
 								<td>
-									Rechnungsdatum
+									Auftragsnummer
 								</td>
 								<td>
 									Kunde
 								</td>
 								<td>
-									Name des Dokuments
+									Patient
 								</td>
 								<td>
 									eingetragen am

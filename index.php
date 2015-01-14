@@ -1,7 +1,7 @@
 <?php session_start();
 include("login/header_login.php");
 // db-Verbindung herstellen
-include("conn.php");
+include("conn_local.php");
 // Variablen aus Formular zuweisen
 $username = $_POST["username"];
 $passwort = md5($_POST["password"]);
