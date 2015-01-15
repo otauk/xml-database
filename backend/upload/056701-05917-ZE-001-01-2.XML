@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Laborabrechnung Version="4.2">
+  <Rechnung Laborname="Dentalglobal GmbH" Labor-ID="" Herstellungsort="D-Hamm, KR-Busan" Abrechnungsbereich="WL" NEM_Einzelpreis="0" NEM_Abrechnungseinheiten="0" Laborlieferdatum="2014-11-26" Laborrechnungsnummer="2257" Auftragsnummer="056701-05917-ZE-001-01-2" Gesamtbetrag_netto="51237" Mehrwertsteuer_gesamt="3587" Gesamtbetrag_brutto="54824" Laborsoftwarehersteller="Wolf" Laborsoftware="DeLab32" Laborsoftwareversion="29144145">
+    <MWST-Gruppe Zwischensumme_netto="51237" Mehrwertsteuersatz="70" Mehrwertsteuerbetrag="3587">
+      <Position Art="BEL" Nummer="0010" Beschreibung="Modell" Einzelpreis="578" Menge="4000"/>
+      <Position Art="BEL" Nummer="0021" Beschreibung="Doublieren" Einzelpreis="1177" Menge="2000"/>
+      <Position Art="BEL" Nummer="0120" Beschreibung="Mittelwertartikulator" Einzelpreis="848" Menge="1000"/>
+      <Position Art="BEL" Nummer="3010" Beschreibung="Aufstellung Grundeinheit" Einzelpreis="2678" Menge="2000"/>
+      <Position Art="BEL" Nummer="3020" Beschreibung="Aufstellen Wachs- o. Kunststoff je Zahn" Einzelpreis="160" Menge="15000"/>
+      <Position Art="BEL" Nummer="3610" Beschreibung="Fertigstellung Grundeinheit" Einzelpreis="4497" Menge="2000"/>
+      <Position Art="BEL" Nummer="3620" Beschreibung="Fertigstellen je Zahn" Einzelpreis="289" Menge="15000"/>
+      <Position Art="BEL" Nummer="3810" Beschreibung="Sonst. gebog. Halte- und /oder Stützvorr." Einzelpreis="1450" Menge="4000"/>
+      <Position Art="BEL" Nummer="3822" Beschreibung="Sonderkunststoff" Einzelpreis="4694" Menge="2000"/>
+      <Position Art="MAT" Beschreibung="Frontzahn-Primodent" Einzelpreis="650" Menge="5000"/>
+      <Position Art="MAT" Beschreibung="Seitenzahn-Primodent" Einzelpreis="550" Menge="10000"/>
+      <Position Art="BEL" Nummer="9330" Beschreibung="Versandkosten" Einzelpreis="350" Menge="2000"/>
+    </MWST-Gruppe>
+  </Rechnung>
+</Laborabrechnung>
