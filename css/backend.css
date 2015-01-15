@@ -24,6 +24,10 @@ background-color:rgba(149, 165, 166,0.1);
 color: #000;
 }
 
+ td.small {
+	width:250px;
+}
+
 h1, h2 {
 	padding-bottom: 0.5em;
 }

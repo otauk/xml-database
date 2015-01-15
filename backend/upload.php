@@ -1,14 +1,16 @@
-<?
+<?php
 // Verzeichnis für Bilder-Upload
 $target = $_SERVER['DOCUMENT_ROOT']."xml/backend/upload/";
 $target = $target . basename( $_FILES['document']['name']);
-// Variablen einsammeln
-$kunden_id = $_POST["kunden_id"];
-$invoice_no = $_POST["invoice_no"];
-$invoice_date = $_POST["invoice_date"];
 $document=($_FILES['document']['name']);
+// Variablen einsammeln
+$lieferdatum = $_POST["lieferdatum"];
+$rechnungsnummer = $_POST["rechnungsnummer"];
+$auftragsnummer = $_POST["auftragsnummer"];
+$kunde = $_POST["kunde"];
+$patient = $_POST["patient"];
 
-// Formular gesendet?
+// Upload gesendet?
 if (isset ($_POST["upload"])) {
 	if (empty($document)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Keine Datei ausgewählt</div>";}
 	// Dateityp XML?
@@ -17,16 +19,7 @@ if (isset ($_POST["upload"])) {
 		if(strtolower(end($type)) != 'xml') {$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte nur XML-Dateien hochladen</div>";}
 	}
 		//  Nur wenn KEINE Fehler vorliegen, hier weiter
-			if (empty($fehler)) {
-		// Eintrag vornehmen
-		/*
-		$sqlab = 	"INSERT INTO docs_db
-					(kunden_id, invoice_no, document, invoice_date)
-					VALUES ('$kunden_id', '$invoice_no', '$document', '$invoice_date')";
-		$query = mysqli_query ($con, $sqlab);
-		$query or die ("<p>A fatal MySQL error occured</p>.\n<br />Query: " . $query . "<br />\nError: (" . mysqli_errno() . ") " . mysqli_error());
-		*/
-		// Bilder-Upload?
+		if (empty($fehler)) {
 			if ($document!=NULL) {
 				if(move_uploaded_file($_FILES['document']['tmp_name'], $target)) {
 				//Tells you if its all ok
@@ -37,9 +30,24 @@ if (isset ($_POST["upload"])) {
 				$confirmation = "<div class='alert red'>Sorry, there was a problem uploading your file.</div>";
 				}
 			}
-			else $confirmation = "<div class='alert green'>Daten erfolgreich &uuml;bernommen</div>";
 		}
 		// Abbruch
 		else {$confirmation = $fehler;}
+}
+
+// Patient gesendet?
+if (isset ($_POST["entry"])) {
+	if (empty($patient)) {$entryfehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie den Namen des Patienten an</div>";}
+	if (empty($entryfehler)) {
+	// Eintrag vornehmens
+		$sqlab = 	"INSERT INTO docs_db
+					(kunden_id, lieferdatum, rechnungsnummer, auftragsnummer, document, patient)
+					VALUES ('$kunde', '$lieferdatum', '$rechnungsnummer', '$auftragsnummer', '$document', '$patient')";
+		$query = mysqli_query ($con, $sqlab);
+		$query or die;
+		$confirmation = "<div class='alert green'>Daten erfolgreich &uuml;bernommen</div>";
+		header ("LOCATION: mitarbeiter_ausgabe.php");
+	}
+	else {$confirmation = $entryfehler;}
 }
 ?>

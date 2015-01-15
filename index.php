@@ -1,7 +1,6 @@
 <?php session_start();
-include("login/header_login.php");
 // db-Verbindung herstellen
-include("conn_local.php");
+include("conn.php");
 // Variablen aus Formular zuweisen
 $username = $_POST["username"];
 $passwort = md5($_POST["password"]);
@@ -27,16 +26,16 @@ $confirmation = "";
 					if ($row->group == '1') { 				// --- Gruppe 1 = ADMIN/Mitarbeiter
 					$_SESSION["admin"] = $username;
 					$_SESSION["intern"] = $username;
+					 header ("LOCATION: backend/verwaltung.php");
 						$confirmation = "
 						<div class='alert green'>Login f&uuml;r die Gruppe <strong>Mitarbeiter</strong> erfolgreich.</div>
-						<a href='backend/verwaltung.php'><div class='form_btn forward'>Zum Backend</div></a>
 						";
 						}
 					if ($row->group == '0') {				 // --- Gruppe 0 = KUNDEN
 					$_SESSION["intern"] = $username;
+					 header ("LOCATION: backend/kundenportal.php");
 						$confirmation = "
 						<div class='alert green'>Login f&uuml;r die Gruppe <strong>Kunden</strong> erfolgreich.</div>
-						<a href='backend/xml_kunden.php'><div class='form_btn forward'>Zum Kundenportal</div></a>
 						";
 						}
 					}
@@ -47,7 +46,9 @@ $confirmation = "";
 					$confirmation = "<div class='alert red'>$fehler</div>";
 					}
 			}
+include("login/header_login.php");
 ?>
+
 <div id="main_login">
 	<div id="content">
 		 <?php echo $confirmation; ?>
