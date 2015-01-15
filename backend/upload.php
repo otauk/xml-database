@@ -12,6 +12,7 @@ $patient = $_POST["patient"];
 
 // Upload gesendet?
 if (isset ($_POST["upload"])) {
+	// Dokument vorhanden?
 	if (empty($document)) {$fehler .= "<div class='alert red margin-tb-15 w50'>Keine Datei ausgewählt</div>";}
 	// Dateityp XML?
 	if (!empty($document)) {

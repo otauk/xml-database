@@ -145,3 +145,10 @@ label:before {
 .ui-widget-header .ui-priority-primary {
     font-weight: normal;
 }
+
+input:disabled, input:disabled:hover {
+color:#ccc;
+background:#ddd;
+border: 1px solid #ccc;
+top:0;
+}
