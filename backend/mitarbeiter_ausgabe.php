@@ -4,14 +4,25 @@ loggedInAdmin();
 include("header_backend.php");
 	// EINTRAG LÖSCHEN
 $id = $_POST["id"];
+$rechnungsnummer_display = $_POST["rechnungsnummer_display"];
 include("../conn.php");
 if (isset($_POST["ak"])) {
 	if($_POST["ak"]=="de") {
+		// Abfrage für Protokoll
+		$del = "SELECT * FROM docs_db WHERE ID = $id";
+		$delq = $con->query($del);
+		$delerg = mysqli_fetch_object($delq);
+		$del_no = $delerg->auftragsnummer;
+		// Löschvorgang
 		$sqlab = 	"DELETE FROM docs_db WHERE ID = $id";
 		mysqli_query($con,$sqlab);
-		$confirmation = "<div class='alert red'>Rechnung <em>$rechnungsnummer_display</em> wurde gelöscht</div>";
+		include("../include/log_entry.php");
+		log_entry("XML-Datei >>$del_no<< gelöscht");
+		$confirmation = "<div class='alert red'>Rechnung <em>$del_no</em> wurde gelöscht</div>";
 	}
 }
+$suche = $_POST["suchfeld"];
+
 ?>
 <div class="main">
 	<div class="content">
@@ -23,35 +34,61 @@ if (isset($_POST["ak"])) {
 		<input name='check' type='hidden' value='1'/>
 		<input name='rechnungsnummer_display' type="hidden" value="<?=$rechnungsnummer_display;?>" />
 	<h1>Liste aller XML-Dateien</h1>
-	<a href="mitarbeiter_upload.php" class='form_btn download'>Neue Datei hinzufügen</a>
+	<a href="mitarbeiter_upload.php" class='form_btn forward'>Neue Datei hinzufügen</a>
+
+<!-- // ~~~~~~~~~~~~~~ SUCHE ~~~~~~~~~~~~~ // -->
+
+	<form name="suche" id="suche" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+	<input type="text" class='textfield' id="suchfeld" name="suchfeld"/>
+	<input type="submit" class="dis_btn form_btn" value="Suche" />
+	<?php if ($suche) {echo "<input type='submit' class='form_btn' value='Alles anzeigen' />";} else "";?>
+	</form>
+
+<!-- ~~ Button disable wenn Feld leer ~~ -->
+<script>
+	$(document).ready(function() {
+		$('.dis_btn').attr('disabled','disabled');
+		$('input[type="text"]').keyup(function() {
+			if($(this).val() != '') {
+				$('input[type="submit"]').removeAttr('disabled');
+				}
+		});
+	});
+</script>
+
 	<?php echo $confirmation;?>
-				<div id="editor"></div>
-					<table class="tbl">
-						<tr>
-								<td>
+					<table class="tbl tablesorter" id="mitarbeiterTable">
+						<thead>
+							<tr>
+								<th>
 									Laborlieferdatum
-								</td>
-								<td>
+								</th>
+								<th>
 									Laborrechnungsnummer
-								</td>
-								<td>
+								</th>
+								<th>
 									Auftragsnummer
-								</td>
-								<td>
+								</th>
+								<th>
 									Kunde
-								</td>
-								<td>
+								</th>
+								<th>
 									Patient
-								</td>
-								<td>
+								</th>
+								<th>
 									eingetragen am
-								</td>
+								</th>
 								<td></td>
-						</tr>
+							</tr>
+						</thead>
+						<tbody>
 
 	<?php
 	// Zu Testzwecken hier unten
-	$sql ="SELECT * FROM docs_db ORDER BY insert_date DESC";
+	$sql ="SELECT * FROM docs_db";
+	$suche =  $con->real_escape_string($_POST['suchfeld']);
+	$suche_query = " WHERE patient LIKE  '%".$suche."%' OR auftragsnummer LIKE  '%".$suche."%' OR kunden_id LIKE  '%".$suche."%' OR rechnungsnummer LIKE  '%".$suche."%' OR lieferdatum LIKE  '%".$suche."%'";
+	if ($suche) {$sql .= ' '.$suche_query.' ';}
 	$result = $con->query($sql);
 	while ($row = $result->fetch_assoc()) {
 	$kunden_id = $row["kunden_id"];
@@ -94,17 +131,23 @@ if (isset($_POST["ak"])) {
 										</a>
 								</td>
 							</tr>
+
 	<?php
 
 
 	}
 	?>
-
-</form>
+</tbody>
 					</table>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+<script>
+$(document).ready(function() {
+	$("#mitarbeiterTable").tablesorter({ sortList:[5,0] });
+});
+</script>
 </body>
 </html>

@@ -26,9 +26,6 @@ if (isset ($_POST["check"])) {
 	if (empty($pw)) {
 		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie ein Passwort an</div>";
 	}
-	if (empty($mail)) {
-		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie die E-Mail-Adresse des Benutzers an</div>";
-	}
 // Nur wenn KEINE Fehler vorliegen, hier weiter...
 	if (empty($fehler)) {
 		// Wurde das Formular gesendet?
@@ -37,57 +34,25 @@ if (isset ($_POST["check"])) {
 			if($_POST["ak"]=="in") {
 				$pw_md5 = md5($pw);
 				$sqlab = 	"INSERT INTO user_db
-								(name, pw, kunden_id, mail) values (
+								(name, pw, kunden_id) values (
 								'$name',
 								'$pw_md5',
-								'$kunden_id',
-								'$mail'
+								'$kunden_id'
 								)";
 				mysqli_query ($con, $sqlab);
-				$confirmation = "<div class='alert green margin-tb-15 w50'>Der Eintrag wurde erfolgreich gespeichert</div>";
+				include("../include/log_entry.php");
+				log_entry("Benutzer $name angelegt");
+				$confirmation = "<div class='alert green margin-tb-15 w50'>Der Eintrag wurde erfolgreich gespeichert
+				<p>
+				Es wurden folgende Daten übernommen:
+				</p>
+				<p>
+				Kunde: $kunden_id<br/>
+				Benutzername: $name<br/>
+				Passwort: $pw<br/>
+				</div>";
 			}
 		}
-
-// ##################### Mail-Versand #####################
-
-$absender = "info@dentalglobal.de";
-$sender            = "Dentalglobal GmbH";
-$sendermail        = "$absender";
-$subject         = "Eingangsbestätigung";
-$header = 'Content-type: text/html; charset=utf-8' . "\r\n";
-$header .= "From: $sender <$sendermail>\r\n";
-$header .= "BCC: $absender\r\n";
-$header .= "Reply-to: <$sendermail>\r\n";
-$header .= "Return-path: <$sendermail>\r\n";
-$text = "
-<p>
-Sehr geehrte/r Herr/Frau,
-</p>
-<p>
-wir haben für Sie einen Zugang zu unserer <a href='http://www.zahnspar-zentrum.de/xml/'>XML-Datenbank</a> erstellt.
-</p>
-
-<p>
-Ihr Benutzername lautet:	<em>$name</em>
-</p>
-<p>
-Ihr Passwort lautet: <em>$pw</em>
-</p>
-
-Bitte ändern Sie dieses Passwort nach Ihrem ersten Login über das Menü oben links indem Sie auf Ihren Benutzernamen klicken und dann aus dem Menü 'Passwort ändern' wählen. Füllen Sie anschließend das Formular entsprechend aus und loggen Sie sich mit Ihrem neuen Passwort ein.
-</p>
-<p>
-Alle Passwörter werden sicher verschlüsselt in einer Datenbank gespeichert. Sollten Sie Ihr Passwort vergessen, können Sie sich über den Link unten rechts auf der <a href='http://www.zahnspar-zentrum.de/xml/'>Login-Seite</a> ein neues Zufalls-Passwort zuschicken lassen. Nach erfolgtem Login können Sie dieses wie oben beschrieben wieder beliebig ändern.
-</p>
-<p>
-Mit freundlichen Grüßen
-</p>
-<p>
-Dentalglobal GmbH
-</p>
-";
-
-mail($mail, $subject, $text, $header);
 		// ...sonst hier weiter:
 // ##################### Fehlermeldung #####################
 	} // Ende if (emtpy $fehler)
@@ -124,10 +89,12 @@ mail($mail, $subject, $text, $header);
 						</label>
 						<div class="fieldname">Benutzername:</div>
 						<input class="textfield"  type="text" name='name' size='50' required='required' placeholder='qwerty123' value="<?=$name;?>"/>
+						<?php
+							include("../include/pwgen.php");
+							$passwort = passwort_create();
+						?>
 												<div class="fieldname">Passwort:</div>
-						<input class="passwort"  type="text" name='pw' size='50' required='required' placeholder='*****' value="<?=$passwort;?>"/>
-						<div class="fieldname">E-Mail:</div>
-						<input class="textfield"  type="text" name='mail' size='50' required='required' placeholder='info@info.de' value="<?=$mail;?>"/>
+						<input class="textfield"  type="text" name='pw' size='50' required='required' placeholder='test123' value="<?=$passwort;?>"/>
 					<div class="topspace"></div>
 					<a  class='form_btn submit' onClick='javascript:send(0,0);'>
 						Eingaben senden

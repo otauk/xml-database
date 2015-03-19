@@ -2,6 +2,13 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~| HEADER |~~~~~~~~~~~~~~~~~~~~ -->
 <?php
 $username = $_SESSION["intern"];
+include("../conn.php");
+$abfrage = "SELECT * FROM log_db WHERE username =  '$username' AND action = 'Login' ORDER BY stempel DESC LIMIT 1";
+$erg = $con->query($abfrage);
+$row = mysqli_fetch_object($erg);
+$stempel = $row->stempel;
+$time = strtotime($stempel);
+$stempel_form = date("d.m.Y // G:i", $time)." Uhr";
 ?>
 <html>
 <head>
@@ -18,6 +25,8 @@ $username = $_SESSION["intern"];
 	<div id="top_login">
 		<div id="logo_login">
 			<i class='fa fa-database'></i>&nbsp;XML-Datenbank Dentalglobal GmbH
+			<span style="text-align: right;">(Letzter Login: <?=$stempel_form;?>)</span>
 		</div>
-			<?php include("user_dropdown.php");?>
+			<?php include("user_dropdown.php"); ?>
+
 	</div>

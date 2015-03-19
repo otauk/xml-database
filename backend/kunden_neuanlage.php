@@ -16,22 +16,23 @@ if (isset ($_POST["check"])) {
 		$kunden_id_check = "SELECT kunden_id FROM kunden_db";
 		$kunden_id_result = $con->query($kunden_id_check);
 // ##################### Validierung #####################
-	$reg_kunden_id = "/^[0-9]{5}+$/";
+	$reg_kunden_id = "/^[0-9]+$/";
 	if (empty($kunden_id)) {
-		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie eine kunden_id an</div>";
-	} else if (!preg_match($reg_kunden_id,$kunden_id)) {
-		$fehler .= "<div class='alert red margin-tb-15 w50'>Keine gültige kunden_id!</div>";
+		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie eine Kunden-ID an</div>";
+	}
+	else if (strlen($kunden_id) < 4 OR strlen($kunden_id) > 7) {
+		$fehler .= "<div class='alert red margin-tb-15 w50'>Kunden-ID muss zwischen 4 und 7 Stellen haben</div>";
+	}
+	else if (!preg_match($reg_kunden_id,$kunden_id)) {
+		$fehler .= "<div class='alert red margin-tb-15 w50'>Keine gültige Kunden-ID!</div>";
 	}
 	while($row = $kunden_id_result->fetch_assoc()) {
 			if($row["kunden_id"] == $kunden_id) {
-				$fehler .= "<div class='alert red margin-tb-15 w50'>kunden_id bereits vergeben!</div>";
+				$fehler .= "<div class='alert red margin-tb-15 w50'>Kunden-ID bereits vergeben!</div>";
 			}
 		}
 	if (empty($name)) {
 		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie den Namen des Kunden an</div>";
-	}
-	if (empty($mail)) {
-		$fehler .= "<div class='alert red margin-tb-15 w50'>Bitte geben Sie die E-Mail-Adresse des Kunden an</div>";
 	}
 // Nur wenn KEINE Fehler vorliegen, hier weiter...
 	if (empty($fehler)) {
@@ -40,13 +41,14 @@ if (isset ($_POST["check"])) {
 			// NEUER EINTRAG
 			if($_POST["ak"]=="in") {
 				$sqlab = 	"INSERT INTO kunden_db
-								(kunden_id, name, mail) values (
+								(kunden_id, name) values (
 								'$kunden_id',
-								'$name',
-								'$mail'
+								'$name'
 								)";
 				mysqli_query ($con, $sqlab);
 				$confirmation = "<div class='alert green margin-tb-15 w50'>Der Eintrag wurde erfolgreich gespeichert</div>";
+				include("../include/log_entry.php");
+				log_entry("Neuen Kunden >>$name<< angelegt");
 			}
 		}
 		// ...sonst hier weiter:
@@ -67,12 +69,10 @@ if (isset ($_POST["check"])) {
 						<input name='ak' type='hidden' value='in'/>
 						<input name='id' type='hidden' />
 						<input name='check' type='hidden' value='1'/>
-						<div class="fieldname">Kunden-ID (z.B. 12345):</div>
-						<input class="textfield" type="text" name='kunden_id' size='50' maxlength="5" required='required' placeholder='12345' value="<?=$kunden_id;?>"/>
+						<div class="fieldname">Kunden-ID (z.B. 1234567):</div>
+						<input class="textfield" type="text" name='kunden_id' size='50' maxlength="7" required='required' placeholder='12345' value="<?=$kunden_id;?>"/>
 						<div class="fieldname">Name (z.B. Zahnarztpraxis Meier):</div>
 						<input class="textfield"  type="text" name='name' size='50' required='required' placeholder='Name des Kunden' value="<?=$name;?>"/>
-						<div class="fieldname">E-Mail (info@info.de):</div>
-						<input class="textfield"  type="text" name='mail' size='50' required='required' placeholder='info@info.de' value="<?=$mail;?>"/>
 					<div class="topspace"></div>
 					<a  class='form_btn submit' onClick='javascript:send(0,0);'>
 						Eingaben senden

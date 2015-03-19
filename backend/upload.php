@@ -46,6 +46,8 @@ if (isset ($_POST["entry"])) {
 					VALUES ('$kunde', '$lieferdatum', '$rechnungsnummer', '$auftragsnummer', '$document', '$patient')";
 		$query = mysqli_query ($con, $sqlab);
 		$query or die;
+		include("../include/log_entry.php");
+		log_entry("Upload XML-Datei >>$auftragsnummer<<");
 		$confirmation = "<div class='alert green'>Daten erfolgreich &uuml;bernommen</div>";
 		header ("LOCATION: mitarbeiter_ausgabe.php");
 	}

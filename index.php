@@ -8,10 +8,9 @@ $confirmation = "";
 
 	/* ^^^^^ Daten aus pb_db___user_db auslesen  */
 	$abfrage = "SELECT * FROM user_db WHERE name = '$username' LIMIT 1";
-	//$ergebnis = mysql_query($abfrage);
-	//$row = mysql_fetch_object($ergebnis);
 	$ergebnis = $con->query($abfrage);
 	$row = mysqli_fetch_object($ergebnis);
+	$gruppe = $row->group;
 	// Username und/oder Passwort vorhanden?
 		if(empty($username) OR empty($passwort)) {
 			$fehler = "Bitte alle Felder ausf&uuml;llen";
@@ -22,7 +21,6 @@ $confirmation = "";
 				if($row->pw == $passwort)
 					{
 					// Ausgabe der Weiterleitung
-					// hier dann die Abfrage rein, für welchen Bereich der Zutritt gewährt wird
 					if ($row->group == '1') { 				// --- Gruppe 1 = ADMIN/Mitarbeiter
 					$_SESSION["admin"] = $username;
 					$_SESSION["intern"] = $username;
@@ -38,6 +36,21 @@ $confirmation = "";
 						<div class='alert green'>Login f&uuml;r die Gruppe <strong>Kunden</strong> erfolgreich.</div>
 						";
 						}
+					// update last login für Ausgabe in user-Ansicht
+					$lastlogin = "UPDATE user_db SET last_login=NOW() WHERE name = '$username'";
+					$ll = $con->query($lastlogin);
+
+					// Eintrag in log_db
+
+							$IP = getenv('REMOTE_ADDR');
+							$log = 	"INSERT INTO log_db
+									(username, stempel, action, IP) values (
+									'$username',
+									NOW(),
+									'Login',
+									'$IP'
+									)";
+							$logentry = $con->query($log);
 					}
 			// Wenn nicht...
 				else

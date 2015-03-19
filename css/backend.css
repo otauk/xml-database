@@ -152,3 +152,11 @@ background:#ddd;
 border: 1px solid #ccc;
 top:0;
 }
+
+.bereich {
+	padding:0.5em 0;
+}
+
+.bereich.leftside {
+	float:left;
+}

@@ -7,7 +7,7 @@ include("header_backend.php");
 			<div class="content">
 				<div class="text">
 					<h1>Upload</h1>
-					<div class="topspace">
+					<div>
 						<a href="mitarbeiter_upload.php" class='form_btn forward'>Neue Datei hinzufügen</a>
 					</div>
 					<div class="topspace">
@@ -23,6 +23,14 @@ include("header_backend.php");
 					</div>
 					<div class="topspace">
 						<a href="user_neuanlage.php" class='form_btn edit'>Neuen Benutzer anlegen</a>
+					</div>
+					<hr/>
+					<h1>in Development (nicht zur Benutzung freigegeben)</h1>
+					<div>
+						<a href="calc.php" class='form_btn edit'>Kostenvoranschlagsrechner</a>
+					</div>
+					<div class="topspace">
+						<a href="log.php" class='form_btn user'>Protokoll</a>
 					</div>
 				</div>
 			</div>

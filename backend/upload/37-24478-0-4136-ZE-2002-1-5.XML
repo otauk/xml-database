@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Laborabrechnung Version="4.2">
+  <Rechnung Laborname="Dentalglobal GmbH" Labor-ID="" Herstellungsort="D-Hamm" Abrechnungsbereich="WL" NEM_Einzelpreis="0" NEM_Abrechnungseinheiten="0" Laborlieferdatum="2015-01-09" Laborrechnungsnummer="2345" Auftragsnummer="37-24478-0-4136-ZE-2002-1-5" Gesamtbetrag_netto="19471" Mehrwertsteuer_gesamt="1363" Gesamtbetrag_brutto="20834" Laborsoftwarehersteller="Wolf" Laborsoftware="DeLab32" Laborsoftwareversion="29144145">
+    <MWST-Gruppe Zwischensumme_netto="19471" Mehrwertsteuersatz="70" Mehrwertsteuerbetrag="1363">
+      <Position Art="BEL" Nummer="0010" Beschreibung="Modell" Einzelpreis="587" Menge="2000"/>
+      <Position Art="BEL" Nummer="0120" Beschreibung="Mittelwertartikulator" Einzelpreis="861" Menge="1000"/>
+      <Position Art="BEL" Nummer="3010" Beschreibung="Aufstellung Grundeinheit" Einzelpreis="2720" Menge="1000"/>
+      <Position Art="BEL" Nummer="3020" Beschreibung="Aufstellen Wachs- o. Kunststoff je Zahn" Einzelpreis="163" Menge="5000"/>
+      <Position Art="BEL" Nummer="3610" Beschreibung="Fertigstellung Grundeinheit" Einzelpreis="4569" Menge="1000"/>
+      <Position Art="BEL" Nummer="3620" Beschreibung="Fertigstellen je Zahn" Einzelpreis="294" Menge="5000"/>
+      <Position Art="BEL" Nummer="3800" Beschreibung="Einfache gebogene Halte- / Stützvorr." Einzelpreis="872" Menge="4000"/>
+      <Position Art="MAT" Beschreibung="Frontzahn Crown PX" Einzelpreis="950" Menge="1000"/>
+      <Position Art="MAT" Beschreibung="Seitenzahn Efucera PX" Einzelpreis="650" Menge="4000"/>
+      <Position Art="BEL" Nummer="9330" Beschreibung="Versandkosten" Einzelpreis="412" Menge="2000"/>
+    </MWST-Gruppe>
+  </Rechnung>
+</Laborabrechnung>

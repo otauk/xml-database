@@ -1,5 +1,8 @@
 <?php
 session_start();
+// Eintrag in log_db über den logout
+include("../include/log_entry.php");
+log_entry(Logout);
 // Unset all of the session variables.
 $_SESSION = array();
 // If it's desired to kill the session, also delete the session cookie.

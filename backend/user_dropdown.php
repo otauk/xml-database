@@ -42,10 +42,7 @@ if ($row->group == 1) {
 <div id="dropdown-1" class="dropdown dropdown-tip">
 	<ul class="dropdown-menu">
 		<li>
-			<a href="../login/tools/pw_change.php" class="password">Passwort ändern</a>
-		</li>
-		<li>
-			<a href="mailto:manuel.buczka@rub.de?subject=Störung%20XML-Datenbank%20Dentalglobal%20GmbH"  class="problem">Problem melden</a>
+			<a href="mailto:info@dentalglobal.de?subject=Störung%20XML-Datenbank%20Dentalglobal%20GmbH"  class="problem">Problem melden</a>
 		</li>
 		<li class="dropdown-divider"></li>
 		<li>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Laborabrechnung Version="4.2">
+  <Rechnung Laborname="Dentalglobal GmbH" Labor-ID="" Herstellungsort="D-Hamm" Abrechnungsbereich="WL" NEM_Einzelpreis="0" NEM_Abrechnungseinheiten="0" Laborlieferdatum="2015-01-05" Laborrechnungsnummer="2342" Auftragsnummer="37-24478-0-1476-ZE-2028-1-7" Gesamtbetrag_netto="9176" Mehrwertsteuer_gesamt="642" Gesamtbetrag_brutto="9818" Laborsoftwarehersteller="Wolf" Laborsoftware="DeLab32" Laborsoftwareversion="29144145">
+    <MWST-Gruppe Zwischensumme_netto="9176" Mehrwertsteuersatz="70" Mehrwertsteuerbetrag="642">
+      <Position Art="BEL" Nummer="0010" Beschreibung="Modell" Einzelpreis="578" Menge="2000"/>
+      <Position Art="BEL" Nummer="0120" Beschreibung="Mittelwertartikulator" Einzelpreis="848" Menge="1000"/>
+      <Position Art="BEL" Nummer="8010" Beschreibung="Grundeinheit Instandsetzung ZE" Einzelpreis="1676" Menge="1000"/>
+      <Position Art="BEL" Nummer="8027" Beschreibung="LE Kunststoffsattel" Einzelpreis="721" Menge="1000"/>
+      <Position Art="BEL" Nummer="8040" Beschreibung="Retention, gegossen" Einzelpreis="3965" Menge="1000"/>
+      <Position Art="BEL" Nummer="9330" Beschreibung="Versandkosten" Einzelpreis="405" Menge="2000"/>
+    </MWST-Gruppe>
+  </Rechnung>
+</Laborabrechnung>
